@@ -125,9 +125,11 @@ def training(settings):
         num_head=settings['num_head'], num_layers=settings['num_layers'], 
         dropout=0.1, activation="gelu", device=device
     )
+    # model_vae = v.VAE().to(device)
     if ngpu > 1:
         model = torch.nn.DataParallel(model, device_ids=device_list)
-    # model_vae = v.VAE().to(device)
+        # model_vae = torch.nn.DataParallel(model_vae, device_ids=device_list)
+
     epochs = settings['epoch']
     batch_size = settings['batch']
     print("\nTraining to %d epochs (%d of minibatch size)" %(epochs, batch_size))
