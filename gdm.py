@@ -90,16 +90,16 @@ batch_size = 256
 full_batch_size = batch_size * 2
 
 
-def cond_fn(self, x, t, w):
-    B, C = x.shape[:2]
-    assert t.shape == (B,)
-    y = model(x, x.shape[0])
-    y_reshaped = y.unsqueeze(1).unsqueeze(2).repeat(1, x.shape[1], x.shape[2])
-    assert y_reshaped.shape == x.shape
-    assert th.equal(y_reshaped[:, :, 0], y.repeat(1, x.shape[1]))
-    # 如何计算p(x|y), y与x的维度问题?
-    # p_xt_var = _extract_into_tensor(self.posterior_log_variance_clipped, t, x.shape)
-    # p_xt_mean = _extract_into_tensor(self.posterior_mean_coef2+self.posterior_mean_coef1, t, x.shape) * x
+# def cond_fn(self, x, t, w):
+#     B, C = x.shape[:2]
+#     assert t.shape == (B,)
+#     y = model(x, x.shape[0])
+#     y_reshaped = y.unsqueeze(1).unsqueeze(2).repeat(1, x.shape[1], x.shape[2])
+#     assert y_reshaped.shape == x.shape
+#     assert th.equal(y_reshaped[:, :, 0], y.repeat(1, x.shape[1]))
+#     # 如何计算p(x|y), y与x的维度问题?
+#     # p_xt_var = _extract_into_tensor(self.posterior_log_variance_clipped, t, x.shape)
+#     # p_xt_mean = _extract_into_tensor(self.posterior_mean_coef2+self.posterior_mean_coef1, t, x.shape) * x
 
 samples = diffusion.GaussianDiffusion.p_sample_loop(
     model_fn,

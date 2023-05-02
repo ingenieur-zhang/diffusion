@@ -232,7 +232,7 @@ class GaussianDiffusion:
 
         B, C = x.shape[:2]
         assert t.shape == (B,)
-        model_output = model(x, t)  # 使用unet, 返回和x一样的图,C*2
+        model_output = model(x, t)  # 使用unet, 返回condition结果
         if isinstance(model_output, tuple):
             model_output, extra = model_output
         else:
